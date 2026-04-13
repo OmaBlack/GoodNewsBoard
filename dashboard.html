@@ -60,6 +60,39 @@
             padding: 0 24px;
         }
 
+        /* Filter Bar */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .filter-btn:hover {
+            background: #f8f9fa;
+            border-color: var(--accent-green);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-green);
+            color: white;
+            border-color: var(--accent-green);
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
+        }
+
         .dashboard-grid {
             display: grid;
             /* Grid system for multi-column layout */
@@ -141,6 +174,80 @@
             align-items: center;
         }
 
+        /* Subscription Section */
+        .subscribe-container {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 40px auto 60px;
+        }
+
+        .subscribe-container h3 {
+            margin-top: 0;
+            color: #1b4d3e;
+            font-size: 1.5rem;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .subscribe-form input {
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            width: 100%;
+            max-width: 300px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .subscribe-form input:focus {
+            border-color: var(--accent-green);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 15px;
+            text-decoration: underline;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        #sub-message {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            min-height: 1.4rem;
+        }
+
+        .success { color: #2e7d32; font-weight: 600; }
+        .info { color: var(--text-light); }
+
         /* Responsive Design: Collapse to single column < 768px */
         @media (max-width: 768px) {
             header {
@@ -151,6 +258,13 @@
             }
             .dashboard-grid {
                 grid-template-columns: 1fr;
+            }
+            .subscribe-form {
+                flex-direction: column;
+                align-items: center;
+            }
+            .subscribe-form input {
+                max-width: 100%;
             }
         }
     </style>
@@ -165,10 +279,18 @@
 </header>
 
 <main class="container">
+    <div class="filter-container">
+        <button class="filter-btn active" data-category="all">All</button>
+        <button class="filter-btn" data-category="environment">Environment</button>
+        <button class="filter-btn" data-category="medicine">Medicine</button>
+        <button class="filter-btn" data-category="tech">Tech</button>
+        <button class="filter-btn" data-category="humanity">Humanity</button>
+    </div>
+
     <div class="dashboard-grid" id="news-grid">
 
         <!-- Environment Card -->
-        <article class="card">
+        <article class="card" data-category="environment">
             <span class="badge env">Environment</span>
             <h2>Great Barrier Reef Shows Highest Coral Cover in 36 Years</h2>
             <p>New surveys reveal significant recovery across northern and central stretches, showcasing nature's incredible resilience when protected by conservation efforts.</p>
@@ -183,7 +305,7 @@
         </article>
 
         <!-- Medical Card -->
-        <article class="card">
+        <article class="card" data-category="medicine">
             <span class="badge med">Medicine</span>
             <h2>Breakthrough mRNA Vaccine Shows Promise in Melanoma Trial</h2>
             <p>A personalized treatment combined with immunotherapy has significantly reduced the risk of recurrence in high-risk patients during clinical trials.</p>
@@ -198,7 +320,7 @@
         </article>
 
         <!-- Tech Card -->
-        <article class="card">
+        <article class="card" data-category="tech">
             <span class="badge tech">Tech</span>
             <h2>Solar-Powered Irrigation Transforms Arid Farmlands</h2>
             <p>Affordable new pumping technology is allowing small-scale farmers to triple their crop yields without relying on expensive and polluting fossil fuels.</p>
@@ -213,7 +335,7 @@
         </article>
 
         <!-- Humanity Card -->
-        <article class="card">
+        <article class="card" data-category="humanity">
             <span class="badge hum">Humanity</span>
             <h2>Global Literacy Rates Reach All-Time High of 90%</h2>
             <p>Recent international data confirms that the vast majority of the world’s population can now read and write, marking a historic milestone in education.</p>
@@ -228,19 +350,80 @@
         </article>
 
     </div>
+
+    <section class="subscribe-container">
+        <h3>Stay Inspired</h3>
+        <p>Get a daily dose of optimism delivered to your inbox.</p>
+        <div class="subscribe-form">
+            <input type="email" id="email-input" placeholder="Enter your email address" aria-label="Email Address">
+            <button class="btn btn-primary" id="subscribe-btn">Subscribe</button>
+        </div>
+        <button class="btn btn-secondary" id="unsubscribe-btn">Opt-out of updates</button>
+        <div id="sub-message"></div>
+    </section>
 </main>
 
 <script>
-    /**
-     * TO INJECT REAL-TIME DATA:
-     * 1. Fetch data from your API (e.g., fetch('https://api.goodnews.com/latest'))
-     * 2. Map through the results
-     * 3. Clear the #news-grid innerHTML
-     * 4. Append new article elements using the template structure above
-     */
-
     document.addEventListener('DOMContentLoaded', () => {
-        console.log("The Optimist’s Feed: Dashboard initialized.");
+        // --- Filtering Logic ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const newsCards = document.querySelectorAll('.card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const category = btn.getAttribute('data-category');
+
+                // Filter cards
+                newsCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- Subscription Logic ---
+        const subscribeBtn = document.getElementById('subscribe-btn');
+        const unsubscribeBtn = document.getElementById('unsubscribe-btn');
+        const emailInput = document.getElementById('email-input');
+        const subMessage = document.getElementById('sub-message');
+
+        const showMessage = (text, type) => {
+            subMessage.textContent = text;
+            subMessage.className = type;
+            setTimeout(() => {
+                subMessage.textContent = '';
+                subMessage.className = '';
+            }, 5000);
+        };
+
+        subscribeBtn.addEventListener('click', () => {
+            const email = emailInput.value.trim();
+            if (email && email.includes('@')) {
+                showMessage(`Success! ${email} has been subscribed to daily updates. ✨`, 'success');
+                emailInput.value = '';
+            } else {
+                showMessage('Please enter a valid email address.', 'info');
+            }
+        });
+
+        unsubscribeBtn.addEventListener('click', () => {
+            const email = emailInput.value.trim();
+            if (email && email.includes('@')) {
+                showMessage(`You have been unsubscribed. We'll miss you!`, 'info');
+                emailInput.value = '';
+            } else {
+                showMessage('Please enter your email to unsubscribe.', 'info');
+            }
+        });
+
+        console.log("The Optimist’s Feed: Dashboard fully initialized with filters and subscription.");
     });
 </script>
 
