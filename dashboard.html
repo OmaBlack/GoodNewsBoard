@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Optimist’s Feed | Global Good News</title>
+    <style>
+        :root {
+            /* Zen-inspired palette */
+            --bg-color: #F0F4F8; /* Clean white-blue background */
+            --card-bg: #ffffff;
+            --accent-green: #4caf50;
+            --accent-blue: #2196f3;
+            --header-gradient-start: #e0f2f1; /* Soft green-blue */
+            --header-gradient-end: #e3f2fd; /* Soft sky blue */
+            --text-main: #2d3436;
+            --text-light: #636e72;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --radius: 16px; /* 12px+ rounded corners */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);
+            padding: 4rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            color: #1b4d3e; /* Deep zen green */
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            /* Grid system for multi-column layout */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 4rem;
+        }
+
+        /* News Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            width: fit-content;
+            letter-spacing: 0.05em;
+        }
+
+        /* Category specific colors */
+        .env { background: #e8f5e9; color: #2e7d32; }
+        .med { background: #e3f2fd; color: #1565c0; }
+        .tech { background: #fff3e0; color: #ef6c00; }
+        .hum { background: #f3e5f5; color: #7b1fa2; }
+
+        .card h2 {
+            font-size: 1.4rem;
+            margin: 0 0 12px 0;
+            line-height: 1.3;
+            color: #2c3e50;
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 1rem;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        .meta {
+            font-size: 0.85rem;
+            border-top: 1px solid #f1f2f6;
+            padding-top: 18px;
+            margin-top: auto;
+            color: #95a5a6;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Responsive Design: Collapse to single column < 768px */
+        @media (max-width: 768px) {
+            header {
+                padding: 3rem 1rem;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>🌱 The Optimist’s Feed</h1>
+        <p>Your daily source of breakthroughs and global progress.</p>
+    </div>
+</header>
+
+<main class="container">
+    <div class="dashboard-grid" id="news-grid">
+
+        <!-- Environment Card -->
+        <article class="card">
+            <span class="badge env">Environment</span>
+            <h2>Great Barrier Reef Shows Highest Coral Cover in 36 Years</h2>
+            <p>New surveys reveal significant recovery across northern and central stretches, showcasing nature's incredible resilience when protected by conservation efforts.</p>
+            <div class="meta">
+                <span>Location: Australia</span>
+                <span>2 hours ago</span>
+            </div>
+        </article>
+
+        <!-- Medical Card -->
+        <article class="card">
+            <span class="badge med">Medicine</span>
+            <h2>Breakthrough mRNA Vaccine Shows Promise in Melanoma Trial</h2>
+            <p>A personalized treatment combined with immunotherapy has significantly reduced the risk of recurrence in high-risk patients during clinical trials.</p>
+            <div class="meta">
+                <span>Source: Global Health News</span>
+                <span>5 hours ago</span>
+            </div>
+        </article>
+
+        <!-- Tech Card -->
+        <article class="card">
+            <span class="badge tech">Tech</span>
+            <h2>Solar-Powered Irrigation Transforms Arid Farmlands</h2>
+            <p>Affordable new pumping technology is allowing small-scale farmers to triple their crop yields without relying on expensive and polluting fossil fuels.</p>
+            <div class="meta">
+                <span>Location: Kenya</span>
+                <span>8 hours ago</span>
+            </div>
+        </article>
+
+        <!-- Humanity Card -->
+        <article class="card">
+            <span class="badge hum">Humanity</span>
+            <h2>Global Literacy Rates Reach All-Time High of 90%</h2>
+            <p>Recent international data confirms that the vast majority of the world’s population can now read and write, marking a historic milestone in education.</p>
+            <div class="meta">
+                <span>Source: UNESCO</span>
+                <span>12 hours ago</span>
+            </div>
+        </article>
+
+    </div>
+</main>
+
+<script>
+    /**
+     * TO INJECT REAL-TIME DATA:
+     * 1. Fetch data from your API (e.g., fetch('https://api.goodnews.com/latest'))
+     * 2. Map through the results
+     * 3. Clear the #news-grid innerHTML
+     * 4. Append new article elements using the template structure above
+     */
+
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("The Optimist’s Feed: Dashboard initialized.");
+        // Example injection logic:
+        // const grid = document.getElementById('news-grid');
+        // fetchData().then(data => renderCards(grid, data));
+    });
+</script>
+
+</body>
+</html>
