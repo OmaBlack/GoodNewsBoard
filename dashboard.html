@@ -385,6 +385,55 @@
                 max-width: 100%;
             }
         }
+
+        /* Footer Styles */
+        .footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            padding: 60px 0 30px;
+            margin-top: 40px;
+            color: var(--text-light);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--text-main);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-section p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-green);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
@@ -436,11 +485,11 @@
             <p data-i18n="news1_desc">New surveys reveal significant recovery across northern and central stretches, showcasing nature's incredible resilience when protected by conservation efforts.</p>
             <div class="meta-info">
                 <span><b data-i18n="label_country">Country:</b> <span data-i18n="country_au">Australia</span></span>
-                <span><b>Source:</b> Marine Science Institute</span>
+                <span><b data-i18n="label_source">Source:</b> Marine Science Institute</span>
             </div>
             <div class="meta-footer">
-                <span>2 hours ago • 3 <span data-i18n="read_time">min read</span></span>
-                <span>Developer API: <i>eco-data-v1</i></span>
+                <span><span data-i18n="time_2h">2 hours ago</span> • 3 <span data-i18n="read_time">min read</span></span>
+                <span><span data-i18n="label_api">Developer API:</span> <i>eco-data-v1</i></span>
             </div>
         </article>
 
@@ -451,11 +500,11 @@
             <p data-i18n="news2_desc">A personalized treatment combined with immunotherapy has significantly reduced the risk of recurrence in high-risk patients during clinical trials.</p>
             <div class="meta-info">
                 <span><b data-i18n="label_country">Country:</b> <span data-i18n="country_ch">Switzerland</span></span>
-                <span><b>Source:</b> Health Research Journal</span>
+                <span><b data-i18n="label_source">Source:</b> Health Research Journal</span>
             </div>
             <div class="meta-footer">
-                <span>5 hours ago • 4 <span data-i18n="read_time">min read</span></span>
-                <span>Developer API: <i>med-pulse-api</i></span>
+                <span><span data-i18n="time_5h">5 hours ago</span> • 4 <span data-i18n="read_time">min read</span></span>
+                <span><span data-i18n="label_api">Developer API:</span> <i>med-pulse-api</i></span>
             </div>
         </article>
 
@@ -466,11 +515,11 @@
             <p data-i18n="news3_desc">Affordable new pumping technology is allowing small-scale farmers to triple their crop yields without relying on expensive and polluting fossil fuels.</p>
             <div class="meta-info">
                 <span><b data-i18n="label_country">Country:</b> <span data-i18n="country_ke">Kenya</span></span>
-                <span><b>Source:</b> Tech for Good Initiative</span>
+                <span><b data-i18n="label_source">Source:</b> Tech for Good Initiative</span>
             </div>
             <div class="meta-footer">
-                <span>8 hours ago • 3 <span data-i18n="read_time">min read</span></span>
-                <span>Developer API: <i>agritech-feed</i></span>
+                <span><span data-i18n="time_8h">8 hours ago</span> • 3 <span data-i18n="read_time">min read</span></span>
+                <span><span data-i18n="label_api">Developer API:</span> <i>agritech-feed</i></span>
             </div>
         </article>
 
@@ -481,11 +530,11 @@
             <p data-i18n="news4_desc">Recent international data confirms that the vast majority of the world’s population can now read and write, marking a historic milestone in education.</p>
             <div class="meta-info">
                 <span><b data-i18n="label_country">Country:</b> <span data-i18n="country_ca">Canada</span></span>
-                <span><b>Source:</b> Education Watch</span>
+                <span><b data-i18n="label_source">Source:</b> Education Watch</span>
             </div>
             <div class="meta-footer">
-                <span>12 hours ago • 2 <span data-i18n="read_time">min read</span></span>
-                <span>Developer API: <i>human-progress-v2</i></span>
+                <span><span data-i18n="time_12h">12 hours ago</span> • 2 <span data-i18n="read_time">min read</span></span>
+                <span><span data-i18n="label_api">Developer API:</span> <i>human-progress-v2</i></span>
             </div>
         </article>
 
@@ -528,7 +577,49 @@
     </section>
 </main>
 
+<footer class="footer">
+    <div class="container footer-content">
+        <div class="footer-section">
+            <h4 data-i18n="footer_about">About</h4>
+            <p data-i18n="footer_desc">Curating the world's most inspiring stories to remind us of human progress and the beauty of our planet.</p>
+        </div>
+        <div class="footer-section">
+            <h4 data-i18n="footer_links">Quick Links</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="#" data-i18n="footer_link_privacy">Privacy Policy</a></li>
+                <li><a href="#" data-i18n="footer_link_terms">Terms of Service</a></li>
+                <li><a href="#" data-i18n="footer_link_contact">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4 data-i18n="footer_connect">Stay Connected</h4>
+            <div style="display: flex; gap: 15px;">
+                <a href="#" aria-label="Twitter">Twitter</a>
+                <a href="#" aria-label="Instagram">Instagram</a>
+                <a href="#" aria-label="RSS">RSS</a>
+            </div>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <p>&copy; 2024 <span data-i18n="title">The Optimist’s Feed</span>. <span data-i18n="footer_rights">All rights reserved.</span></p>
+    </div>
+</footer>
+
 <script>
+    /**
+     * API INJECTION POINT:
+     * To integrate with a real-time data source, you can replace the hardcoded card HTML
+     * in the #news-grid container with dynamically generated content.
+     *
+     * Example:
+     * fetch('https://api.optimistfeed.com/v1/stories')
+     *   .then(response => response.json())
+     *   .then(data => {
+     *      // Clear grid and populate with new data
+     *      // Ensure each card has [data-category], [data-country], and [data-i18n] for sorting/filtering/i18n
+     *   });
+     */
+
     document.addEventListener('DOMContentLoaded', () => {
         // --- State Management ---
         let currentCategory = 'all';
@@ -667,7 +758,24 @@
                 read_time: "min read",
                 sub_success_title: "You're on the list!",
                 sub_success_desc: "Thank you for joining our community of optimists. Check your inbox soon.",
-                sub_reset: "Done"
+                sub_reset: "Done",
+                footer_about: "About",
+                footer_desc: "Curating the world's most inspiring stories to remind us of human progress and the beauty of our planet.",
+                footer_links: "Quick Links",
+                footer_link_privacy: "Privacy Policy",
+                footer_link_terms: "Terms of Service",
+                footer_link_contact: "Contact Us",
+                footer_connect: "Stay Connected",
+                footer_rights: "All rights reserved.",
+                label_source: "Source:",
+                label_api: "Developer API:",
+                time_2h: "2 hours ago",
+                time_5h: "5 hours ago",
+                time_8h: "8 hours ago",
+                time_12h: "12 hours ago",
+                msg_invalid_email: "Please enter a valid email address.",
+                msg_unsubscribed: "You have been unsubscribed. We'll miss you!",
+                msg_enter_email: "Please enter your email to unsubscribe."
             },
             es: {
                 title: "El Canal del Optimista",
@@ -703,7 +811,24 @@
                 read_time: "min de lectura",
                 sub_success_title: "¡Ya estás en la lista!",
                 sub_success_desc: "Gracias por unirte a nuestra comunidad de optimistas. Revisa tu bandeja de entrada pronto.",
-                sub_reset: "Listo"
+                sub_reset: "Listo",
+                footer_about: "Sobre Nosotros",
+                footer_desc: "Curando las historias más inspiradoras del mundo para recordarnos el progreso humano y la belleza de nuestro planeta.",
+                footer_links: "Enlaces Rápidos",
+                footer_link_privacy: "Política de Privacidad",
+                footer_link_terms: "Términos de Servicio",
+                footer_link_contact: "Contáctanos",
+                footer_connect: "Mantente Conectado",
+                footer_rights: "Todos los derechos reservados.",
+                label_source: "Fuente:",
+                label_api: "API para desarrolladores:",
+                time_2h: "Hace 2 horas",
+                time_5h: "Hace 5 horas",
+                time_8h: "Hace 8 horas",
+                time_12h: "Hace 12 horas",
+                msg_invalid_email: "Por favor, introduce una dirección de correo electrónico válida.",
+                msg_unsubscribed: "Te has dado de baja. ¡Te echaremos de menos!",
+                msg_enter_email: "Por favor, introduce tu correo electrónico para darte de baja."
             },
             fr: {
                 title: "Le Flux de l'Optimiste",
@@ -739,7 +864,24 @@
                 read_time: "min de lecture",
                 sub_success_title: "Vous êtes sur la liste !",
                 sub_success_desc: "Merci de rejoindre notre communauté d'optimistes. Consultez votre boîte de réception bientôt.",
-                sub_reset: "Terminé"
+                sub_reset: "Terminé",
+                footer_about: "À propos",
+                footer_desc: "Sélection des histoires les plus inspirantes au monde pour nous rappeler le progrès humain et la beauté de notre planète.",
+                footer_links: "Liens rapides",
+                footer_link_privacy: "Politique de confidentialité",
+                footer_link_terms: "Conditions d'utilisation",
+                footer_link_contact: "Contactez-nous",
+                footer_connect: "Restez connecté",
+                footer_rights: "Tous droits réservés.",
+                label_source: "Source :",
+                label_api: "API pour les développeurs :",
+                time_2h: "Il y a 2 heures",
+                time_5h: "Il y a 5 heures",
+                time_8h: "Il y a 8 heures",
+                time_12h: "Il y a 12 heures",
+                msg_invalid_email: "Veuillez saisir une adresse e-mail valide.",
+                msg_unsubscribed: "Vous avez été désabonné. Vous allez nous manquer !",
+                msg_enter_email: "Veuillez saisir votre adresse e-mail pour vous désabonner."
             }
         };
 
@@ -807,11 +949,12 @@
 
         subscribeBtn.addEventListener('click', () => {
             const email = emailInput.value.trim();
+            const lang = langSelect.value;
             emailInput.classList.remove('error');
 
             if (!validateEmail(email)) {
                 emailInput.classList.add('error');
-                showMessage('Please enter a valid email address.', 'info');
+                showMessage(translations[lang].msg_invalid_email, 'info');
                 return;
             }
 
@@ -832,13 +975,14 @@
 
         unsubscribeBtn.addEventListener('click', () => {
             const email = emailInput.value.trim();
+            const lang = langSelect.value;
             emailInput.classList.remove('error');
             if (validateEmail(email)) {
-                showMessage(`You have been unsubscribed. We'll miss you!`, 'info');
+                showMessage(translations[lang].msg_unsubscribed, 'info');
                 emailInput.value = '';
             } else {
                 emailInput.classList.add('error');
-                showMessage('Please enter your email to unsubscribe.', 'info');
+                showMessage(translations[lang].msg_enter_email, 'info');
             }
         });
 
