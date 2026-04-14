@@ -19,6 +19,7 @@
             --radius: 16px;
             --border: rgba(0, 0, 0, 0.05);
             --input-bg: #ffffff;
+            --header-title: #1b4d3e;
         }
 
         [data-theme="dark"] {
@@ -34,6 +35,7 @@
             --accent-green: #50fa7b;
             --accent-blue: #8be9fd;
             --input-bg: #44475a;
+            --header-title: #50fa7b;
         }
 
         * {
@@ -69,7 +71,7 @@
         header h1 {
             margin: 0;
             font-size: 2.8rem;
-            color: #1b4d3e; /* Deep zen green */
+            color: var(--header-title);
             font-weight: 800;
             letter-spacing: -0.02em;
         }
@@ -269,7 +271,7 @@
             text-align: center;
             box-shadow: var(--shadow);
             max-width: 600px;
-            margin: 40px auto 60px;
+            margin: 0 auto 60px;
             border: 1px solid var(--border);
         }
 
@@ -391,7 +393,7 @@
             background: var(--card-bg);
             border-top: 1px solid var(--border);
             padding: 60px 0 30px;
-            margin-top: 40px;
+            margin-top: 0;
             color: var(--text-light);
         }
 
@@ -468,7 +470,7 @@
         </div>
         <div class="sort-container" style="margin-left: auto;">
             <label for="country-sort" style="font-size: 0.85rem; color: var(--text-light);" data-i18n="sort_label">Sort by Country:</label>
-            <select id="country-sort" class="lang-select" style="background: white;">
+            <select id="country-sort" class="lang-select" style="background: var(--input-bg); color: var(--text-main);">
                 <option value="none" data-i18n="sort_none">None</option>
                 <option value="asc" data-i18n="sort_asc">A-Z</option>
                 <option value="desc" data-i18n="sort_desc">Z-A</option>
@@ -540,44 +542,46 @@
 
     </div>
 
-    <section class="subscribe-container" id="subscribe-section">
-        <div id="subscribe-form-view">
-            <h3 data-i18n="sub_title">Stay Inspired</h3>
-            <p data-i18n="sub_desc">Get a daily dose of optimism delivered to your inbox.</p>
-
-            <div class="sub-preferences" style="margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
-                    <input type="checkbox" name="pref" value="environment" checked> <span data-i18n="cat_env">Environment</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
-                    <input type="checkbox" name="pref" value="medicine" checked> <span data-i18n="cat_med">Medicine</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
-                    <input type="checkbox" name="pref" value="tech" checked> <span data-i18n="cat_tech">Tech</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
-                    <input type="checkbox" name="pref" value="humanity" checked> <span data-i18n="cat_hum">Humanity</span>
-                </label>
-            </div>
-
-            <div class="subscribe-form">
-                <input type="email" id="email-input" placeholder="Enter your email address" aria-label="Email Address" data-i18n-placeholder="sub_placeholder">
-                <button class="btn btn-primary" id="subscribe-btn" data-i18n="sub_btn">Subscribe</button>
-            </div>
-            <button class="btn btn-secondary" id="unsubscribe-btn" data-i18n="sub_optout">Opt-out of updates</button>
-            <div id="sub-message"></div>
-        </div>
-
-        <div id="subscribe-success-view" style="display: none;">
-            <div style="font-size: 3rem; margin-bottom: 15px;">✨</div>
-            <h3 data-i18n="sub_success_title">You're on the list!</h3>
-            <p data-i18n="sub_success_desc">Thank you for joining our community of optimists. Check your inbox soon.</p>
-            <button class="btn btn-primary" id="reset-sub-btn" style="margin-top: 20px;" data-i18n="sub_reset">Done</button>
-        </div>
-    </section>
 </main>
 
 <footer class="footer">
+    <div class="container">
+        <section class="subscribe-container" id="subscribe-section" style="margin-bottom: 60px;">
+            <div id="subscribe-form-view">
+                <h3 data-i18n="sub_title">Stay Inspired</h3>
+                <p data-i18n="sub_desc">Get a daily dose of optimism delivered to your inbox.</p>
+
+                <div class="sub-preferences" style="margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                        <input type="checkbox" name="pref" value="environment" checked> <span data-i18n="cat_env">Environment</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                        <input type="checkbox" name="pref" value="medicine" checked> <span data-i18n="cat_med">Medicine</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                        <input type="checkbox" name="pref" value="tech" checked> <span data-i18n="cat_tech">Tech</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                        <input type="checkbox" name="pref" value="humanity" checked> <span data-i18n="cat_hum">Humanity</span>
+                    </label>
+                </div>
+
+                <div class="subscribe-form">
+                    <input type="email" id="email-input" placeholder="Enter your email address" aria-label="Email Address" data-i18n-placeholder="sub_placeholder">
+                    <button class="btn btn-primary" id="subscribe-btn" data-i18n="sub_btn">Subscribe</button>
+                </div>
+                <button class="btn btn-secondary" id="unsubscribe-btn" data-i18n="sub_optout">Opt-out of updates</button>
+                <div id="sub-message"></div>
+            </div>
+
+            <div id="subscribe-success-view" style="display: none;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">✨</div>
+                <h3 data-i18n="sub_success_title">You're on the list!</h3>
+                <p data-i18n="sub_success_desc">Thank you for joining our community of optimists. Check your inbox soon.</p>
+                <button class="btn btn-primary" id="reset-sub-btn" style="margin-top: 20px;" data-i18n="sub_reset">Done</button>
+            </div>
+        </section>
+    </div>
     <div class="container footer-content">
         <div class="footer-section">
             <h4 data-i18n="footer_about">About</h4>
