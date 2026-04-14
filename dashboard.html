@@ -52,6 +52,18 @@
             font-size: 1.1rem;
             color: var(--text-light);
             margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .lang-select {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            cursor: pointer;
+            outline: none;
         }
 
         .container {
@@ -273,29 +285,46 @@
 
 <header>
     <div class="container">
-        <h1>🌱 The Optimist’s Feed</h1>
-        <p>Your daily source of breakthroughs and global progress.</p>
+        <div style="text-align: right; margin-bottom: -20px;">
+            <select class="lang-select" id="lang-select" aria-label="Select Language">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
+        <h1>🌱 <span data-i18n="title">The Optimist’s Feed</span></h1>
+        <p data-i18n="subtitle">Your daily source of breakthroughs and global progress.</p>
     </div>
 </header>
 
 <main class="container">
     <div class="filter-container">
-        <button class="filter-btn active" data-category="all">All</button>
-        <button class="filter-btn" data-category="environment">Environment</button>
-        <button class="filter-btn" data-category="medicine">Medicine</button>
-        <button class="filter-btn" data-category="tech">Tech</button>
-        <button class="filter-btn" data-category="humanity">Humanity</button>
+        <div class="category-filters">
+            <button class="filter-btn active" data-category="all" data-i18n="cat_all">All</button>
+            <button class="filter-btn" data-category="environment" data-i18n="cat_env">Environment</button>
+            <button class="filter-btn" data-category="medicine" data-i18n="cat_med">Medicine</button>
+            <button class="filter-btn" data-category="tech" data-i18n="cat_tech">Tech</button>
+            <button class="filter-btn" data-category="humanity" data-i18n="cat_hum">Humanity</button>
+        </div>
+        <div class="sort-container" style="margin-left: auto;">
+            <label for="country-sort" style="font-size: 0.85rem; color: var(--text-light);" data-i18n="sort_label">Sort by Country:</label>
+            <select id="country-sort" class="lang-select" style="background: white;">
+                <option value="none" data-i18n="sort_none">None</option>
+                <option value="asc" data-i18n="sort_asc">A-Z</option>
+                <option value="desc" data-i18n="sort_desc">Z-A</option>
+            </select>
+        </div>
     </div>
 
     <div class="dashboard-grid" id="news-grid">
 
         <!-- Environment Card -->
-        <article class="card" data-category="environment">
-            <span class="badge env">Environment</span>
-            <h2>Great Barrier Reef Shows Highest Coral Cover in 36 Years</h2>
-            <p>New surveys reveal significant recovery across northern and central stretches, showcasing nature's incredible resilience when protected by conservation efforts.</p>
+        <article class="card" data-category="environment" data-country="Australia">
+            <span class="badge env" data-i18n="cat_env">Environment</span>
+            <h2 data-i18n="news1_title">Great Barrier Reef Shows Highest Coral Cover in 36 Years</h2>
+            <p data-i18n="news1_desc">New surveys reveal significant recovery across northern and central stretches, showcasing nature's incredible resilience when protected by conservation efforts.</p>
             <div class="meta-info">
-                <span><b>Country:</b> Australia</span>
+                <span><b data-i18n="label_country">Country:</b> <span data-i18n="country_au">Australia</span></span>
                 <span><b>Source:</b> Marine Science Institute</span>
             </div>
             <div class="meta-footer">
@@ -305,12 +334,12 @@
         </article>
 
         <!-- Medical Card -->
-        <article class="card" data-category="medicine">
-            <span class="badge med">Medicine</span>
-            <h2>Breakthrough mRNA Vaccine Shows Promise in Melanoma Trial</h2>
-            <p>A personalized treatment combined with immunotherapy has significantly reduced the risk of recurrence in high-risk patients during clinical trials.</p>
+        <article class="card" data-category="medicine" data-country="Switzerland">
+            <span class="badge med" data-i18n="cat_med">Medicine</span>
+            <h2 data-i18n="news2_title">Breakthrough mRNA Vaccine Shows Promise in Melanoma Trial</h2>
+            <p data-i18n="news2_desc">A personalized treatment combined with immunotherapy has significantly reduced the risk of recurrence in high-risk patients during clinical trials.</p>
             <div class="meta-info">
-                <span><b>Country:</b> Global</span>
+                <span><b data-i18n="label_country">Country:</b> <span data-i18n="country_ch">Switzerland</span></span>
                 <span><b>Source:</b> Health Research Journal</span>
             </div>
             <div class="meta-footer">
@@ -320,12 +349,12 @@
         </article>
 
         <!-- Tech Card -->
-        <article class="card" data-category="tech">
-            <span class="badge tech">Tech</span>
-            <h2>Solar-Powered Irrigation Transforms Arid Farmlands</h2>
-            <p>Affordable new pumping technology is allowing small-scale farmers to triple their crop yields without relying on expensive and polluting fossil fuels.</p>
+        <article class="card" data-category="tech" data-country="Kenya">
+            <span class="badge tech" data-i18n="cat_tech">Tech</span>
+            <h2 data-i18n="news3_title">Solar-Powered Irrigation Transforms Arid Farmlands</h2>
+            <p data-i18n="news3_desc">Affordable new pumping technology is allowing small-scale farmers to triple their crop yields without relying on expensive and polluting fossil fuels.</p>
             <div class="meta-info">
-                <span><b>Country:</b> Kenya</span>
+                <span><b data-i18n="label_country">Country:</b> <span data-i18n="country_ke">Kenya</span></span>
                 <span><b>Source:</b> Tech for Good Initiative</span>
             </div>
             <div class="meta-footer">
@@ -335,12 +364,12 @@
         </article>
 
         <!-- Humanity Card -->
-        <article class="card" data-category="humanity">
-            <span class="badge hum">Humanity</span>
-            <h2>Global Literacy Rates Reach All-Time High of 90%</h2>
-            <p>Recent international data confirms that the vast majority of the world’s population can now read and write, marking a historic milestone in education.</p>
+        <article class="card" data-category="humanity" data-country="Canada">
+            <span class="badge hum" data-i18n="cat_hum">Humanity</span>
+            <h2 data-i18n="news4_title">Global Literacy Rates Reach All-Time High of 90%</h2>
+            <p data-i18n="news4_desc">Recent international data confirms that the vast majority of the world’s population can now read and write, marking a historic milestone in education.</p>
             <div class="meta-info">
-                <span><b>Country:</b> Worldwide</span>
+                <span><b data-i18n="label_country">Country:</b> <span data-i18n="country_ca">Canada</span></span>
                 <span><b>Source:</b> Education Watch</span>
             </div>
             <div class="meta-footer">
@@ -352,40 +381,202 @@
     </div>
 
     <section class="subscribe-container">
-        <h3>Stay Inspired</h3>
-        <p>Get a daily dose of optimism delivered to your inbox.</p>
+        <h3 data-i18n="sub_title">Stay Inspired</h3>
+        <p data-i18n="sub_desc">Get a daily dose of optimism delivered to your inbox.</p>
         <div class="subscribe-form">
-            <input type="email" id="email-input" placeholder="Enter your email address" aria-label="Email Address">
-            <button class="btn btn-primary" id="subscribe-btn">Subscribe</button>
+            <input type="email" id="email-input" placeholder="Enter your email address" aria-label="Email Address" data-i18n-placeholder="sub_placeholder">
+            <button class="btn btn-primary" id="subscribe-btn" data-i18n="sub_btn">Subscribe</button>
         </div>
-        <button class="btn btn-secondary" id="unsubscribe-btn">Opt-out of updates</button>
+        <button class="btn btn-secondary" id="unsubscribe-btn" data-i18n="sub_optout">Opt-out of updates</button>
         <div id="sub-message"></div>
     </section>
 </main>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- Filtering Logic ---
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const newsCards = document.querySelectorAll('.card');
+        // --- State Management ---
+        let currentCategory = 'all';
+        let currentSort = 'none';
 
+        const newsGrid = document.getElementById('news-grid');
+        const originalCards = Array.from(document.querySelectorAll('.card'));
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const countrySort = document.getElementById('country-sort');
+
+        const updateDisplay = () => {
+            let filteredCards = originalCards.filter(card => {
+                return currentCategory === 'all' || card.getAttribute('data-category') === currentCategory;
+            });
+
+            if (currentSort !== 'none') {
+                filteredCards.sort((a, b) => {
+                    const countryA = a.getAttribute('data-country').toLowerCase();
+                    const countryB = b.getAttribute('data-country').toLowerCase();
+                    if (currentSort === 'asc') return countryA.localeCompare(countryB);
+                    if (currentSort === 'desc') return countryB.localeCompare(countryA);
+                    return 0;
+                });
+            }
+
+            // Clear and re-append
+            newsGrid.innerHTML = '';
+            filteredCards.forEach(card => {
+                newsGrid.appendChild(card);
+                card.style.display = 'flex';
+            });
+
+            // Re-hide cards that were filtered out if we were just toggling visibility,
+            // but here we are rebuilding the grid for sorting simplicity.
+        };
+
+        // --- Filtering Logic ---
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active button
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+                currentCategory = btn.getAttribute('data-category');
+                updateDisplay();
+            });
+        });
 
-                const category = btn.getAttribute('data-category');
+        // --- Sorting Logic ---
+        countrySort.addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            updateDisplay();
+        });
 
-                // Filter cards
-                newsCards.forEach(card => {
-                    if (category === 'all' || card.getAttribute('data-category') === category) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
+        // --- Language Support Logic ---
+        const langSelect = document.getElementById('lang-select');
+        const translations = {
+            en: {
+                title: "The Optimist’s Feed",
+                subtitle: "Your daily source of breakthroughs and global progress.",
+                cat_all: "All",
+                cat_env: "Environment",
+                cat_med: "Medicine",
+                cat_tech: "Tech",
+                cat_hum: "Humanity",
+                sort_label: "Sort by Country:",
+                sort_none: "None",
+                sort_asc: "A-Z",
+                sort_desc: "Z-A",
+                label_country: "Country:",
+                country_au: "Australia",
+                country_ch: "Switzerland",
+                country_ke: "Kenya",
+                country_ca: "Canada",
+                news1_title: "Great Barrier Reef Shows Highest Coral Cover in 36 Years",
+                news1_desc: "New surveys reveal significant recovery across northern and central stretches, showcasing nature's incredible resilience when protected by conservation efforts.",
+                news2_title: "Breakthrough mRNA Vaccine Shows Promise in Melanoma Trial",
+                news2_desc: "A personalized treatment combined with immunotherapy has significantly reduced the risk of recurrence in high-risk patients during clinical trials.",
+                news3_title: "Solar-Powered Irrigation Transforms Arid Farmlands",
+                news3_desc: "Affordable new pumping technology is allowing small-scale farmers to triple their crop yields without relying on expensive and polluting fossil fuels.",
+                news4_title: "Global Literacy Rates Reach All-Time High of 90%",
+                news4_desc: "Recent international data confirms that the vast majority of the world’s population can now read and write, marking a historic milestone in education.",
+                sub_title: "Stay Inspired",
+                sub_desc: "Get a daily dose of optimism delivered to your inbox.",
+                sub_placeholder: "Enter your email address",
+                sub_btn: "Subscribe",
+                sub_optout: "Opt-out of updates"
+            },
+            es: {
+                title: "El Canal del Optimista",
+                subtitle: "Tu fuente diaria de avances y progreso global.",
+                cat_all: "Todos",
+                cat_env: "Medio Ambiente",
+                cat_med: "Medicina",
+                cat_tech: "Tecnología",
+                cat_hum: "Humanidad",
+                sort_label: "Ordenar por País:",
+                sort_none: "Ninguno",
+                sort_asc: "A-Z",
+                sort_desc: "Z-A",
+                label_country: "País:",
+                country_au: "Australia",
+                country_ch: "Suiza",
+                country_ke: "Kenia",
+                country_ca: "Canadá",
+                news1_title: "La Gran Barrera de Coral muestra la mayor cobertura de coral en 36 años",
+                news1_desc: "Nuevas encuestas revelan una recuperación significativa en los tramos norte y central, mostrando la increíble resistencia de la naturaleza cuando es protegida por esfuerzos de conservación.",
+                news2_title: "Vacuna de ARNm innovadora muestra promesa en ensayo de melanoma",
+                news2_desc: "Un tratamiento personalizado combinado con inmunoterapia ha reducido significativamente el riesgo de recurrencia en pacientes de alto riesgo durante los ensayos clínicos.",
+                news3_title: "El riego solar transforma tierras agrícolas áridas",
+                news3_desc: "Una nueva tecnología de bombeo asequible permite a los pequeños agricultores triplicar sus rendimientos de cultivos sin depender de combustibles fósiles caros y contaminantes.",
+                news4_title: "Las tasas de alfabetización global alcanzan un máximo histórico del 90%",
+                news4_desc: "Datos internacionales recientes confirman que la gran mayoría de la población mundial ahora puede leer y escribir, marcando un hito histórico en la educación.",
+                sub_title: "Mantente Inspirado",
+                sub_desc: "Recibe una dosis diaria de optimismo en tu bandeja de entrada.",
+                sub_placeholder: "Ingresa tu correo electrónico",
+                sub_btn: "Suscribirse",
+                sub_optout: "Optar por no recibir actualizaciones"
+            },
+            fr: {
+                title: "Le Flux de l'Optimiste",
+                subtitle: "Votre source quotidienne de percées et de progrès mondial.",
+                cat_all: "Tous",
+                cat_env: "Environnement",
+                cat_med: "Médecine",
+                cat_tech: "Tech",
+                cat_hum: "Humanité",
+                sort_label: "Trier par Pays:",
+                sort_none: "Aucun",
+                sort_asc: "A-Z",
+                sort_desc: "Z-A",
+                label_country: "Pays:",
+                country_au: "Australie",
+                country_ch: "Suisse",
+                country_ke: "Kenya",
+                country_ca: "Canada",
+                news1_title: "La Grande Barrière de Corail affiche sa plus haute couverture corallienne en 36 ans",
+                news1_desc: "De nouvelles enquêtes révèlent une récupération significative dans les tronçons nord et centraux, illustrant l'incroyable résilience de la nature lorsqu'elle est protégée par des efforts de conservation.",
+                news2_title: "Un nouveau vaccin à ARNm prometteur dans un essai sur le mélanome",
+                news2_desc: "Un traitement personnalisé combiné à l'immunothérapie a considérablement réduit le risque de récidive chez les patients à haut risque lors d'essais cliniques.",
+                news3_title: "L'irrigation à l'énergie solaire transforme les terres agricoles arides",
+                news3_desc: "Une nouvelle technologie de pompage abordable permet aux petits agriculteurs de tripler leurs rendements agricoles sans dépendre de combustibles fossiles coûteux et polluants.",
+                news4_title: "Le taux d'alphabétisation mondial atteint un sommet historique de 90 %",
+                news4_desc: "Des données internationales récentes confirment que la vaste majorité de la population mondiale sait désormais lire et écrire, marquant une étape historique dans l'éducation.",
+                sub_title: "Restez Inspiré",
+                sub_desc: "Recevez une dose quotidienne d'optimisme dans votre boîte de réception.",
+                sub_placeholder: "Entrez votre adresse e-mail",
+                sub_btn: "S'abonner",
+                sub_optout: "Se désabonner des mises à jour"
+            }
+        };
+
+        const updateLanguage = (lang) => {
+            // Translate static elements in the DOM
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // Translate placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    el.setAttribute('placeholder', translations[lang][key]);
+                }
+            });
+
+            // Translate news cards (including those not currently in the DOM)
+            originalCards.forEach(card => {
+                card.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        el.textContent = translations[lang][key];
                     }
                 });
             });
+
+            // Re-sort current selection names if necessary, but since sorting is on data attributes
+            // and those remain static (or we'd need to translate them too if we sorted by visible text).
+            // Here sorting is by 'data-country' which we kept as English for logic.
+        };
+
+        langSelect.addEventListener('change', (e) => {
+            updateLanguage(e.target.value);
         });
 
         // --- Subscription Logic ---
