@@ -344,6 +344,28 @@
         .success { color: #2e7d32; font-weight: 600; }
         .info { color: var(--text-light); }
 
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
         /* Responsive Design: Collapse to single column < 768px */
         @media (max-width: 768px) {
             header {
@@ -469,15 +491,40 @@
 
     </div>
 
-    <section class="subscribe-container">
-        <h3 data-i18n="sub_title">Stay Inspired</h3>
-        <p data-i18n="sub_desc">Get a daily dose of optimism delivered to your inbox.</p>
-        <div class="subscribe-form">
-            <input type="email" id="email-input" placeholder="Enter your email address" aria-label="Email Address" data-i18n-placeholder="sub_placeholder">
-            <button class="btn btn-primary" id="subscribe-btn" data-i18n="sub_btn">Subscribe</button>
+    <section class="subscribe-container" id="subscribe-section">
+        <div id="subscribe-form-view">
+            <h3 data-i18n="sub_title">Stay Inspired</h3>
+            <p data-i18n="sub_desc">Get a daily dose of optimism delivered to your inbox.</p>
+
+            <div class="sub-preferences" style="margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="checkbox" name="pref" value="environment" checked> <span data-i18n="cat_env">Environment</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="checkbox" name="pref" value="medicine" checked> <span data-i18n="cat_med">Medicine</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="checkbox" name="pref" value="tech" checked> <span data-i18n="cat_tech">Tech</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="checkbox" name="pref" value="humanity" checked> <span data-i18n="cat_hum">Humanity</span>
+                </label>
+            </div>
+
+            <div class="subscribe-form">
+                <input type="email" id="email-input" placeholder="Enter your email address" aria-label="Email Address" data-i18n-placeholder="sub_placeholder">
+                <button class="btn btn-primary" id="subscribe-btn" data-i18n="sub_btn">Subscribe</button>
+            </div>
+            <button class="btn btn-secondary" id="unsubscribe-btn" data-i18n="sub_optout">Opt-out of updates</button>
+            <div id="sub-message"></div>
         </div>
-        <button class="btn btn-secondary" id="unsubscribe-btn" data-i18n="sub_optout">Opt-out of updates</button>
-        <div id="sub-message"></div>
+
+        <div id="subscribe-success-view" style="display: none;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">✨</div>
+            <h3 data-i18n="sub_success_title">You're on the list!</h3>
+            <p data-i18n="sub_success_desc">Thank you for joining our community of optimists. Check your inbox soon.</p>
+            <button class="btn btn-primary" id="reset-sub-btn" style="margin-top: 20px;" data-i18n="sub_reset">Done</button>
+        </div>
     </section>
 </main>
 
@@ -617,7 +664,10 @@
                 sub_btn: "Subscribe",
                 sub_optout: "Opt-out of updates",
                 search_placeholder: "Search stories...",
-                read_time: "min read"
+                read_time: "min read",
+                sub_success_title: "You're on the list!",
+                sub_success_desc: "Thank you for joining our community of optimists. Check your inbox soon.",
+                sub_reset: "Done"
             },
             es: {
                 title: "El Canal del Optimista",
@@ -650,7 +700,10 @@
                 sub_btn: "Suscribirse",
                 sub_optout: "Optar por no recibir actualizaciones",
                 search_placeholder: "Buscar historias...",
-                read_time: "min de lectura"
+                read_time: "min de lectura",
+                sub_success_title: "¡Ya estás en la lista!",
+                sub_success_desc: "Gracias por unirte a nuestra comunidad de optimistas. Revisa tu bandeja de entrada pronto.",
+                sub_reset: "Listo"
             },
             fr: {
                 title: "Le Flux de l'Optimiste",
@@ -683,7 +736,10 @@
                 sub_btn: "S'abonner",
                 sub_optout: "Se désabonner des mises à jour",
                 search_placeholder: "Rechercher des histoires...",
-                read_time: "min de lecture"
+                read_time: "min de lecture",
+                sub_success_title: "Vous êtes sur la liste !",
+                sub_success_desc: "Merci de rejoindre notre communauté d'optimistes. Consultez votre boîte de réception bientôt.",
+                sub_reset: "Terminé"
             }
         };
 
@@ -726,8 +782,19 @@
         // --- Subscription Logic ---
         const subscribeBtn = document.getElementById('subscribe-btn');
         const unsubscribeBtn = document.getElementById('unsubscribe-btn');
+        const resetSubBtn = document.getElementById('reset-sub-btn');
         const emailInput = document.getElementById('email-input');
         const subMessage = document.getElementById('sub-message');
+        const subscribeFormView = document.getElementById('subscribe-form-view');
+        const subscribeSuccessView = document.getElementById('subscribe-success-view');
+
+        const validateEmail = (email) => {
+            return String(email)
+                .toLowerCase()
+                .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                );
+        };
 
         const showMessage = (text, type) => {
             subMessage.textContent = text;
@@ -741,25 +808,43 @@
         subscribeBtn.addEventListener('click', () => {
             const email = emailInput.value.trim();
             emailInput.classList.remove('error');
-            if (email && email.includes('@')) {
-                showMessage(`Success! ${email} has been subscribed to daily updates. ✨`, 'success');
-                emailInput.value = '';
-            } else {
+
+            if (!validateEmail(email)) {
                 emailInput.classList.add('error');
                 showMessage('Please enter a valid email address.', 'info');
+                return;
             }
+
+            // Simulate loading state
+            const originalText = subscribeBtn.textContent;
+            subscribeBtn.classList.add('btn-loading');
+            subscribeBtn.innerHTML = `<span class="spinner"></span> Subscribe`;
+
+            setTimeout(() => {
+                subscribeBtn.classList.remove('btn-loading');
+                subscribeBtn.textContent = originalText;
+
+                subscribeFormView.style.display = 'none';
+                subscribeSuccessView.style.display = 'block';
+                emailInput.value = '';
+            }, 1500);
         });
 
         unsubscribeBtn.addEventListener('click', () => {
             const email = emailInput.value.trim();
             emailInput.classList.remove('error');
-            if (email && email.includes('@')) {
+            if (validateEmail(email)) {
                 showMessage(`You have been unsubscribed. We'll miss you!`, 'info');
                 emailInput.value = '';
             } else {
                 emailInput.classList.add('error');
                 showMessage('Please enter your email to unsubscribe.', 'info');
             }
+        });
+
+        resetSubBtn.addEventListener('click', () => {
+            subscribeSuccessView.style.display = 'none';
+            subscribeFormView.style.display = 'block';
         });
 
         console.log("The Optimist’s Feed: Dashboard fully initialized with filters and subscription.");
